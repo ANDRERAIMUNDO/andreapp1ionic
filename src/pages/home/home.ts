@@ -47,6 +47,7 @@ export class HomePage {
   }
 
   signup() {
+    this.menu.swipeEnable(false);
     this.navCtrl.push('SignupPage');
   }
 }

@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  fromGroup: FormGroup;
+  formGroup: FormGroup;
   estados: EstadoDTO[];
   cidades: CidadeDTO[]
 
@@ -22,42 +22,41 @@ export class SignupPage {
     public cidadeService: CidadeService,
     public estadoService: EstadoService) {
 
-    this.fromGroup = this.formBuilder.group({
-      nome: ['andre raimundo', [Validators.required, Validators.minLength(10), Validators.minLength(100)]],
-      email: ['andre1@gmail.com', [Validators.required, Validators.email]],
-      senha: ['miha senha32323', [Validators.required]],
+    this.formGroup = this.formBuilder.group({
+      nome: ['Maria Rosa da Silva', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      email: ['joaoft_12@gmail.com', [Validators.required, Validators.email]],
+      senha: ['minhasenha32323', [Validators.required]],
       tipo: ['1', [Validators.required]],
-      cpfOuCnpj: ['00938419226', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+      cpfOuCnpj: ['23569844021', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
       cep: ['68655999', [Validators.required]],
       logradouro: ['rua nova', [Validators.required]],
       numero: ['12', [Validators.required]],
       complemento: ['centro', []],
       bairro: ['novo bairro', [Validators.required]],
-      telefone1: ['919987567180', [Validators.required]],
+      telefone1: ['91987567180', [Validators.required]],
       telefone2: ['', []],
       telefone3: ['', []],
-      estadoId: [null, [Validators.required]],
-      cidadeId: [null, [Validators.required]]
+      estadoId: ['null', [Validators.required]],
+      cidadeId: ['null', [Validators.required]]
     });
   }
   ionViewDidLoad() {
     this.estadoService.findAll()
       .subscribe(response => {
         this.estados = response;
-        this.fromGroup.controls.estadoId.setValue(this.estados[0].id);
+        this.formGroup.controls.estadoId.setValue(this.estados[0].id);
         this.updateCidades();
       },
         error => { });
   }
   updateCidades() {
-    let estado_id = this.fromGroup.value.estadoId;
+    let estado_id = this.formGroup.value.estadoId;
     this.cidadeService.findAll(estado_id)
       .subscribe(response => {
         this.cidades = response;
-        this.fromGroup.controls.cidadeId.setValue(null);
+        this.formGroup.controls.cidadeId.setValue(null);
       })
   }
-
   signupUser() {
     console.log("enviou o form");
   }
