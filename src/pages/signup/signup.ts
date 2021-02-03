@@ -1,10 +1,12 @@
+import { ClienteService } from './../../services/domain/cliente.service';
 import { CidadeDTO } from './../../models/cidade.dto';
 import { EstadoDTO } from './../../models/estado.dto';
 import { EstadoService } from './../../services/domain/estado.service';
 import { CidadeService } from './../../services/domain/cidade.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { text } from '@angular/core/src/render3/instructions';
 
 @IonicPage()
 @Component({
@@ -20,11 +22,13 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) {
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController) {
 
     this.formGroup = this.formBuilder.group({
       nome: ['Maria Rosa da Silva', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      email: ['joaoft_12@gmail.com', [Validators.required, Validators.email]],
+      email: ['9000andre@gmail.com', [Validators.required, Validators.email]],
       senha: ['minhasenha32323', [Validators.required]],
       tipo: ['1', [Validators.required]],
       cpfOuCnpj: ['23569844021', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
@@ -58,7 +62,30 @@ export class SignupPage {
       })
   }
   signupUser() {
-    console.log("enviou o form");
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+        error => { });
   }
+  showInsertOk() {
+    let alert = this.alertCtrl.create(
+      {
+        title: 'Sucesso! ',
+        message: 'Registro efetuado',
+        enableBackdropDismiss: false,
+        buttons:
+          [
+            {
+              text: 'Ok',
+              handler: () => {
+                this.navCtrl.setRoot('HomePage');
+              }
+            }
 
+          ]
+      }
+    );
+    alert.present();
+  }
 }
