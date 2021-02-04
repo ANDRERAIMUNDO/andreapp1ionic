@@ -1,9 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>produtodetail</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>ProdutoDetail</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
   <ion-card>
     <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'" />
@@ -16,5 +18,5 @@
       </p>
     </ion-card-content>
   </ion-card>
-  <button ion-button block outline>Adicionar ao carrinho</button>
+  <button ion-button block outline (click)="addToCart(item)">Adicionar ao carrinho</button>
 </ion-content>
