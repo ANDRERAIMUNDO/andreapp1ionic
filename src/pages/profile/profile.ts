@@ -4,7 +4,8 @@ import { StorageService } from './../../services/storage.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { API_CONFIG } from '../../config/api.config';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 
 
 @IonicPage()

@@ -1,7 +1,7 @@
 import { ImageUtilService } from './../image-ultil.service';
 import { API_CONFIG } from './../../config/api.config';
 import { StorageService } from './../storage.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { ClienteDTO } from '../../models/cliente.dto';
